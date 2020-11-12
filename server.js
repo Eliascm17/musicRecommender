@@ -6,9 +6,7 @@ const app = next({ dev });
 const handle = app.getRequestHandler();
 let querystring = require("query-string");
 
-let redirect_uri = "http://localhost:3000/callback";
-// let redirect_uri =
-//   `${process.env.NEXT_PUBLIC_PROJECT}` || "http://localhost:3000/callback";
+let redirect_uri = `${process.env.NEXT_PUBLIC_REDIRECT_URI}`;
 
 app.prepare().then(() => {
   const server = express();
