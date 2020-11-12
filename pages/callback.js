@@ -2,26 +2,28 @@ import React from "react";
 import { useAuth } from "../lib/auth";
 
 export async function getServerSideProps(context) {
-  // try {
-  const token = await fetch("https://accounts.spotify.com/api/token", {
-    method: "POST",
-    headers: {
-      // prettier-ignore
-      'Authorization': "Basic " + process.env.NEXT_PUBLIC_CLIENT_ID_AND_SECRET_ENCODED,
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body:
-      "grant_type=authorization_code&code=" +
-      context.req.query.code +
-      "&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fcallback",
-  });
+  let jsonToken;
 
-  const jsonToken = await token.json();
-  // console.log("token", token);
-  console.log("jsonToken", jsonToken);
-  // } catch (err) {
-  //   console.log(err);
-  // }
+  try {
+    const token = await fetch("https://accounts.spotify.com/api/token", {
+      method: "POST",
+      headers: {
+        // prettier-ignore
+        'Authorization': "Basic " + process.env.NEXT_PUBLIC_CLIENT_ID_AND_SECRET_ENCODED,
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body:
+        "grant_type=authorization_code&code=" +
+        context.req.query.code +
+        "&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fcallback",
+    });
+
+    jsonToken = await token.json();
+    console.log("token", token);
+    console.log("jsonToken", jsonToken);
+  } catch (err) {
+    console.log(err);
+  }
 
   console.log("access_token", jsonToken.access_token);
   let jsonUser;
