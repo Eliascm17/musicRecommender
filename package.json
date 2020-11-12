@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "NODE_ENV=development node server.js",
     "build": "next build",
-    "start": "NODE_ENV=production next start"
+    "start": "NODE_ENV=production node server.js"
   },
   "dependencies": {
     "@chakra-ui/core": "^0.8.0",
