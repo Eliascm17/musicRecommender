@@ -29,14 +29,12 @@ export async function getServerSideProps(context) {
   //1 - true
   //0 - false
 
-  // console.log(songData);
-  let explicit;
-  if (songDataAlt.explicit) {
-    if (songDataAlt.explicit === false) {
-      explicit = 0;
-    } else {
-      explicit = 1;
-    }
+  console.log(songDataAlt);
+  let flag;
+  if (songDataAlt.explicit === false) {
+    flag = 0;
+  } else if (songDataAlt.explicit === true) {
+    flag = 1;
   }
 
   let releaseYear;
@@ -44,7 +42,7 @@ export async function getServerSideProps(context) {
     releaseYear = songDataAlt.album.release_date.slice(0, 4);
   }
 
-  const body = `year=${releaseYear}&explicit=${explicit}&mode=${songData.mode}&popularity=${songDataAlt.popularity}&
+  const body = `year=${releaseYear}&explicit=${flag}&mode=${songData.mode}&popularity=${songDataAlt.popularity}&
     acousticness=${songData.acousticness}&danceability=${songData.danceability}&energy=${songData.energy}&instrumentalness=${songData.instrumentalness}&key=${songData.key}&liveness=${songData.liveness}&loudness=${songData.loudness}&
     speechiness=${songData.speechiness}&tempo=${songData.speechiness}&valence=${songData.valence}`;
 
