@@ -34,7 +34,7 @@ const callback = ({ user, token, topTracks }) => {
                 query: { id: track.id, token },
               }}
             >
-              <Button ml={5} size="xs">
+              <Button ml={5} size="xs" variantColor="blue">
                 Select
               </Button>
             </Link>
@@ -76,12 +76,15 @@ callback.getInitialProps = async (context) => {
       });
       jsonUser = await user.json();
 
-      const tracks = await fetch("https://api.spotify.com/v1/me/top/tracks", {
-        headers: {
-          // prettier-ignore
-          'Authorization': "Bearer " + jsonToken.access_token,
-        },
-      });
+      const tracks = await fetch(
+        "https://api.spotify.com/v1/me/top/tracks?limit=50",
+        {
+          headers: {
+            // prettier-ignore
+            'Authorization': "Bearer " + jsonToken.access_token,
+          },
+        }
+      );
       jsonTopTracks = await tracks.json();
     }
   } catch (err) {
